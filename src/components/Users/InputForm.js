@@ -3,7 +3,7 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 import classes from "./InputForm.module.css";
-import Wrapper from "../Helpers/Wrapper";
+import React from "react";
 
 const InputForm = (props) => {
   const [userInput, setUserInput] = useState({
@@ -66,7 +66,7 @@ const InputForm = (props) => {
   };
 
   return (
-    <Wrapper>
+    <React.Fragment>
       {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/>}
       <Card className={classes.input}>
         <form onSubmit={submitHandler}>
@@ -85,7 +85,7 @@ const InputForm = (props) => {
           <Button type="submit">Add User</Button>
         </form>
       </Card>
-    </Wrapper>
+    </React.Fragment>
   );
 };
 
