@@ -1,13 +1,16 @@
-import "./InputForm.css";
 import { useState } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
+import ErrorModal from "../UI/ErrorModal";
+import classes from "./InputForm.module.css";
 
 const InputForm = (props) => {
   const [userInput, setUserInput] = useState({
     enteredUserName: "",
     enteredAge: "",
   });
+
+  const [error, setError] = useState();
 
   const userNameChangeHandler = (e) => {
     setUserInput(() => {
@@ -29,10 +32,21 @@ const InputForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if(userInput.enteredUserName.trim().length === 0 || userInput.enteredAge.trim().length === 0) {
+    if (
+      userInput.enteredUserName.trim().length === 0 ||
+      userInput.enteredAge.trim().length === 0
+    ) {
+      setError({
+        title: "Invalid input!",
+        message: "Please enter a valid name and age"
+      });
       return;
     }
-    if(+userInput.enteredAge < 1) {
+    if (+userInput.enteredAge < 1) {
+      setError({
+        title: "Invalid age!",
+        message: "Please enter a valid age!"
+      })
       return;
     }
     const inputData = {
@@ -46,9 +60,14 @@ const InputForm = (props) => {
     });
   };
 
+  const errorHandler = () => {
+    setError(null);
+  };
+
   return (
-    <Card>
-      <div className="input">
+    <div>
+      {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/>}
+      <Card className={classes.input}>
         <form onSubmit={submitHandler}>
           <label>Username</label>
           <input
@@ -64,8 +83,8 @@ const InputForm = (props) => {
           />
           <Button type="submit">Add User</Button>
         </form>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 
