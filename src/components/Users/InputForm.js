@@ -36,6 +36,7 @@ const InputForm = (props) => {
       return;
     }
     const inputData = {
+      id: Math.random().toString(),
       name: userInput.enteredUserName,
       age: userInput.enteredAge,
     };

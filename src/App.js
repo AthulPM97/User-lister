@@ -1,19 +1,20 @@
 import InputForm from "./components/Users/InputForm";
 import UserList from "./components/UserList";
+import { useState } from "react";
 
+function App() {
+  const [userList, setUserList] = useState([]);
 
-function App(props) {
   const saveUserDataHandler = (savedUserData) => {
-    const userData = {
-      ...savedUserData
-    };
-    console.log(userData);
+    setUserList((prevUserLIst) => {
+      return [...prevUserLIst, savedUserData];
+    });
   };
-
+console.log(userList)
   return (
     <div>
-      <InputForm onSaveUserData={saveUserDataHandler}/>
-      <UserList users={[]}/>
+      <InputForm onSaveUserData={saveUserDataHandler} />
+      <UserList users={userList} />
     </div>
   );
 }
