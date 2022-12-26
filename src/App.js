@@ -10,7 +10,7 @@ function App() {
       return [...prevUserLIst, savedUserData];
     });
   };
-console.log(userList)
+
   return (
     <div>
       <InputForm onSaveUserData={saveUserDataHandler} />
